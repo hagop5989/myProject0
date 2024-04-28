@@ -1,0 +1,15 @@
+CREATE DATABASE my_test1;
+
+USE my_test1;
+
+CREATE TABLE my_table1
+(col1 INT,
+col2 CHAR(20)
+);
+
+DESC my_table1;
+
+ALTER TABLE my_table1
+    MODIFY col1 INT PRIMARY KEY AUTO_INCREMENT,
+    MODIFY col2 VARCHAR(100) NOT NULL ;
+
