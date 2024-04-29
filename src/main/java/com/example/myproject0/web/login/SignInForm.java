@@ -1,4 +1,4 @@
-package com.example.myproject0.web.controller;
+package com.example.myproject0.web.login;
 
 import com.example.myproject0.domain.member.Member;
 import lombok.RequiredArgsConstructor;

@@ -13,7 +13,7 @@
     <input type="submit" value="회원가입">
 </form>
 
-조회
+로그인
 <form action="/login/login" method="post">
 <input type="text" name="userId" value="">
 <input type="text" name="password" value="">

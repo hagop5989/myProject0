@@ -15,29 +15,29 @@ public interface MemberMapper {
     int insert(Member member);
 
     @Select("""
-SELECT *
-FROM member
-""")
+    SELECT *
+    FROM member
+    """)
     List<Member> findAllMembers();
 
     @Select("""
-SELECT *
-FROM member
-WHERE userId = #{selectMember}
-""")
+    SELECT *
+    FROM member
+    WHERE userId = #{selectMember}
+    """)
     Member select(String selectMember);
 
     @Update("""
-UPDATE member SET
-                  userId = #{member.userId},
-                  password =#{member.password}
-            WHERE userId = #{prevName};
-""")
+    UPDATE member SET
+                      userId = #{member.userId},
+                      password =#{member.password}
+                WHERE userId = #{prevName};
+    """)
     int update(Member member,String prevName);
 
     @Delete("""
-DELETE FROM member WHERE userId = #{userId};
-""")
+    DELETE FROM member WHERE userId = #{userId};
+    """)
     int delete (Member member);
 
 

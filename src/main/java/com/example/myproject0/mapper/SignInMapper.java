@@ -10,5 +10,5 @@ public interface SignInMapper {
     @Insert("""
         INSERT INTO member(userId, password) VALUES (#{userId},#{password})
         """)
-     int insertMemberToDB(Member newMember);
+     int insertMemberToDb(Member newMember);
 }

@@ -29,7 +29,7 @@
 <b>
     <div style="background: skyblue">메세지 : ${message}</div>
 </b>
-
+<hr>
 <%--특정인 조회--%>
 <form action="/member/select">
     <input type="text" name="search" placeholder="이름을 입력하세요!">
@@ -39,7 +39,7 @@
 <div style="margin-left: 10px;"><h2>데이터 입력 & 조회 & 수정 & 삭제</h2>
     <%--수정--%>
     <form action="${selected == null ? '/member/insert':'/member/update'}" method="post">
-       <c:if test="${selected == null}"> <input type="submit" value="입력"></c:if>
+
         <div><span>dbId:</span>
             <input type="number" value="${selected != null ? selected.dbId:1}" readonly>
         </div>
@@ -49,7 +49,7 @@
         <div><span>password:</span>
             <input type="text" value="${selected != null ? selected.password : "1234"}" name="password">
         </div>
-
+        <c:if test="${selected == null}"> <input type="submit" value="입력"></c:if>
         <input type="hidden" name="prevName" value="${selected.userId}">
         <input style="background:lightslategrey; " type="submit" value="수정">
     </form>
@@ -70,7 +70,7 @@
 
 
 <hr>
-<h3>Member 자료들</h3>
+<h3>Member 목록</h3>
 <form action="/member/members">
     <button>조회</button>
 </form>

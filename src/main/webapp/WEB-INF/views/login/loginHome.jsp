@@ -4,27 +4,32 @@
 <head>
     <title>Title</title>
 </head>
+<style>
+    .div_flex { display: flex;}
+    div {margin: 5px; border: 1px solid black;}
+</style>
 <body>
 <c:if test=""></c:if>
 <h1>로그인</h1>
 로그인 완료되었습니다
 반갑습니다 ${loginMember.userId} 님
-
-<div>Product
+<hr>
+<a href="/item/items">Product</a>
+<div class="div_flex">
     <div>Create</div>
     <div>Read</div>
     <div>Update</div>
     <div>Delete</div>
 </div>
-
-<div><a href="/member/members">Member</a>
+<a href="/member/members">Member</a>
+<div class="div_flex">
     <div>Create</div>
     <div>Read</div>
     <div>Update</div>
     <div>Delete</div>
 </div>
-
-<div>Order
+Order
+<div class="div_flex">
     <div>Create</div>
     <div>Read</div>
     <div>Update</div>
