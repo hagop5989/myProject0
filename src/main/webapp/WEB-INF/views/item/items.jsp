@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -10,64 +11,91 @@
         border: 1px solid black;
     }
 
-    span {
-        display: block;
+    .error {
+        color: red;
+    }
+
+    .formControl {
         width: 200px;
+        display: block;
     }
 
-    td {
-        width: 5%;
+    .submitBtn {
+        background-color: lightslategrey;
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        text-align: center;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
     }
 
-    form {
-        display: inline;
+    .deleteBtn {
+        background-color: lightcoral;
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        text-align: center;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
     }
 
 </style>
-<h1>아이템</h1>
 <body>
-<b>
+<h1>아이템</h1>
+
+<c:if test="${not empty message}">
     <div style="background: skyblue">메세지 : ${message}</div>
-    <div style="background: lightcoral">오류 : ${range.item.price}</div>
-
-
-</b>
+</c:if>
 <hr>
-<%--특정인 조회--%>
-<form action="/item/select">
+
+<form:form action="/item/select" method="get">
     <input type="text" name="search" placeholder="아이템명을 입력하세요!">
-    <input type="submit" value="조회">
-</form>
-<div style="margin-left: 10px;"><h2>아이템 입력 & 조회 & 수정 & 삭제</h2>
-    <%--수정--%>
-    <form action="${selected == null ? '/item/insert':'/item/update'}" method="post">
+    <input class="submitBtn" type="submit" value="조회">
+</form:form>
 
+<div>
+    <h2>아이템 입력 & 조회 & 수정 & 삭제</h2>
+    <form:form action="${selected == null ? '/item/insert':'/item/update'}" method="post" modelAttribute="item">
         <div><span>itemId:</span>
-            <input type="number" value="${selected != null ? selected.itemId:1}" readonly>
+            <form:input path="itemId" value="${selected != null ? selected.itemId:1}" readonly="true" cssClass="formControl" />
         </div>
-        <div><span>itemName:</span>
-            <input type="text" value="${selected != null ? selected.itemName: "기본값"}" name="itemName">
+        <div>
+            <span>itemName:</span>
+            <form:input path="itemName" value="${selected != null ? selected.itemName: '기본값'}" cssClass="formControl"/>
+            <form:errors path="itemName" cssClass="error"/>
         </div>
-        <div><span>itemPrice:</span>
-            <input type="text" value="${selected != null ? selected.itemPrice : "2000"}" name="itemPrice">
+        <div>
+            <span>itemPrice:</span>
+            <form:input path="itemPrice" cssClass="formControl" value="${selected != null ? selected.itemPrice : '2000'}"/>
         </div>
-        <c:if test="${selected == null}"> <input type="submit" value="입력"></c:if>
-        <input type="hidden" name="prevName" value="${selected.itemId}">
-        <input style="background:lightslategrey; " type="submit" value="수정">
-    </form>
+        <c:if test="${selected == null}">
+            <input class="submitBtn" type="submit" value="입력">
+        </c:if>
 
-    <%--삭제--%>
-    <form action="/item/delete" method="post">
-        <input style="background:lightcoral; " type="submit" value="삭제">
-        <div><input type="hidden" value="${selected.itemId}" name="itemId"></div>
-    </form>
+        <c:if test="${selected != null}">
+            <input type="hidden" name="prevName" value="${selected.itemId}">
+            <input class="submitBtn" type="submit" value="수정">
+        </c:if>
+    </form:form>
 
+    <form action="/item/delete" method="post" >
+        <input type="hidden" name="itemId" value="${selected.itemId}">
+        <input type="hidden" name="itemName" value="${selected.itemName}">
+        <input class="deleteBtn" type="submit" value="삭제">
+    </form>
+</div>
 
 <hr>
+
 <h3>Item 목록</h3>
-<form action="/item/items">
-    <button>조회</button>
-</form>
+
+<form:form action="/item/items" method="get">
+    <input class="submitBtn" type="submit" value="조회">
+</form:form>
+
 <table>
     <thead>
     <tr style="background: lightslategrey; font-weight: bold; text-align: center;">
@@ -79,15 +107,13 @@
     <tbody>
     <c:forEach items="${items}" var="item">
         <tr>
-            <td> ${item.itemId}</td>
-            <td> ${item.itemName}</td>
-            <td> ${item.itemPrice}</td>
+            <td>${item.itemId}</td>
+            <td>${item.itemName}</td>
+            <td>${item.itemPrice}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
-
 
 </body>
 </html>

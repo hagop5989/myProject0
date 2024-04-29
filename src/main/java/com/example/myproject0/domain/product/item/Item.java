@@ -1,25 +1,20 @@
 package com.example.myproject0.domain.product.item;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 @Data
 @Getter
-@Setter
 public class Item {
 
     private Long itemId;
-    @NotNull
-    @NotBlank(message = "공백 XX")
+    @NotBlank(message = "반드시 값을 입력해주세요")
     private String itemName;
 
-    @Range(min = 0, max = 10000)
-    @NotBlank(message = "공백 XX")
+    @Range(min = 0, max = 10000, message = "0~10000사이의 값을 입력해주세요!")
+    @NotBlank(message = "반드시 값을 입력해주세요")
     private String itemPrice;
 
     public Item(String itemName, String itemPrice) {
